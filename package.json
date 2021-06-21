@@ -4,7 +4,14 @@
   "description": "Taxi24 is a new startup based in Kigali. They would like to disrupt the taxi industry in Rwanda by providing a white-label solution to the existing taxi companies and hotels.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --require @babel/polyfill build/index.js",
+    "dev-server": "nodemon --exec babel-node ./src/index.js",
+    "eslint": "eslint --ignore-path .gitignore .",
+    "db-seed": "NODE_ENV=testing npx sequelize-cli db:seed:undo:all && NODE_ENV=testing sequelize db:seed:all",
+    "db-seed-dev": "npx sequelize-cli db:seed:undo:all && sequelize db:seed:all",
+    "test": "NODE_ENV=testing nyc --reporter=text --reporter=html --require @babel/polyfill --require @babel/register mocha ./src/specs/* --timeout 200000 --exit",
+    "db-migrate": "sequelize db:migrate",
+    "dropTables": "sequelize db:migrate:undo:all"
   },
   "repository": {
     "type": "git",
@@ -27,6 +34,8 @@
     "@types/node": "^14.14.22",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -34,6 +43,7 @@
     "helmet": "^4.4.1",
     "http-status": "^1.5.0",
     "nodemailer": "^6.4.17",
+    "nyc": "^15.1.0",
     "pg": "^8.5.1",
     "sequelize": "^5.22.3",
     "sequelize-cli": "^5.5.1",
