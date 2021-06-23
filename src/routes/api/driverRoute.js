@@ -1,5 +1,7 @@
 import express from "express";
 import DriverController from "../../controllers/DriverController";
+import { DoesDriverExist } from "../../middlewares/driver";
+import Validator from "../../middlewares/Validator";
 
 const driverRoute = express.Router();
 
@@ -59,35 +61,6 @@ driverRoute.get("/all", DriverController.getAllDrivers);
  *
  */
 
-driverRoute.get("/all", DriverController.getAllDrivers);
-
-/**
- * @swagger
- *
- * /drivers/availaible:
- *    get:
- *      summary: get available taxi24 drivers
- *      tags: [Drivers]
- *      requestBody:
- *        required: false
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/driver'
- *      responses:
- *        "201":
- *          description: data retieved successfully
- *
- * components:
- *    schemas:
- *      driver:
- *        type: object
- *        required:
- *          - offset
- *          - limit
- *
- */
-
 driverRoute.get("/available", DriverController.getAllAvailableDrivers);
 
 /**
@@ -117,7 +90,12 @@ driverRoute.get("/available", DriverController.getAllAvailableDrivers);
  *
  */
 
-driverRoute.get("/route", DriverController.getDriversInDistance);
+driverRoute.get(
+  "/route",
+  Validator.driverDistanceRules(),
+  Validator.validateInput,
+  DriverController.getDriversInDistance
+);
 
 /**
  * @swagger
@@ -133,6 +111,12 @@ driverRoute.get("/route", DriverController.getDriversInDistance);
  *          description: data retieved successfully
  */
 
-driverRoute.post("/:id", DriverController.getSpecificDriver);
+driverRoute.get(
+  "/:id",
+  Validator.idRule(),
+  Validator.validateInput,
+  DoesDriverExist,
+  DriverController.getSpecificDriver
+);
 
 export default driverRoute;
