@@ -13,6 +13,7 @@ class TripController {
    * @returns {object} new trip data
    */
   static async createTrip(req, res) {
+
     const newTripData = await TripService.createTrip(req);
 
     return Response.successMessage(
