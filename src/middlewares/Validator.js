@@ -41,10 +41,10 @@ class Validator {
    */
   static driverDistanceRules() {
     return [
-    //   check(
-    //     "driverAddress",
-    //     "Driver address should be valid (ex: -1.9563339,30.0627322)"
-    //   ).isString(),
+      check(
+        "distance",
+        "Distance should be valid integer (in KM) (ex: 3)"
+      ).isInt(),
       check(
         "location",
         "Location address should be valid (ex: -1.9563339,30.0627322)"

@@ -1,6 +1,6 @@
 import express from "express";
 import DriverController from "../../controllers/DriverController";
-import { DoesDriverExist } from "../../middlewares/driver";
+import { doesDriverExist } from "../../middlewares/dataChecker";
 import Validator from "../../middlewares/Validator";
 
 const driverRoute = express.Router();
@@ -115,7 +115,7 @@ driverRoute.get(
   "/:id",
   Validator.idRule(),
   Validator.validateInput,
-  DoesDriverExist,
+  doesDriverExist,
   DriverController.getSpecificDriver
 );
 

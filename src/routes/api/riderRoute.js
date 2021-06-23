@@ -1,5 +1,7 @@
 import express from "express";
 import RiderController from "../../controllers/RiderController";
+import { doesRiderExist } from "../../middlewares/dataChecker";
+import Validator from "../../middlewares/Validator";
 
 const riderRoute = express.Router();
 
@@ -24,7 +26,6 @@ const riderRoute = express.Router();
 
 riderRoute.get("/all", RiderController.getAllRiders);
 
-
 /**
  * @swagger
  *
@@ -40,7 +41,13 @@ riderRoute.get("/all", RiderController.getAllRiders);
  *
  */
 
-riderRoute.get("/:id", RiderController.getSpecificRider);
+riderRoute.get(
+  "/:id",
+  Validator.idRule(),
+  Validator.validateInput,
+  doesRiderExist,
+  RiderController.getSpecificRider
+);
 
 /**
  * @swagger
@@ -57,6 +64,6 @@ riderRoute.get("/:id", RiderController.getSpecificRider);
  *
  */
 
- riderRoute.get("/:id/drivers", RiderController.getClosestDriversForRider);
+riderRoute.get("/:id/drivers", RiderController.getClosestDriversForRider);
 
 export default riderRoute;

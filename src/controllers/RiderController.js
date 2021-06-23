@@ -47,11 +47,11 @@ class RiderController {
    */
   static async getClosestDriversForRider(req, res) {
     const { drivers } = req.query;
-    const closestDrivers = await RiderService.getClosestDriversForRider(req);
+    const [closestDrivers, locationName] = await RiderService.getClosestDriversForRider(req);
 
     return Response.successMessage(
       res,
-      `${drivers} closest drivers available to rider`,
+      `${drivers} closest drivers available to rider (${locationName})`,
       closestDrivers,
       httpStatus.OK
     );
