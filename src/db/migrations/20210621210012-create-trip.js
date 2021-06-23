@@ -58,9 +58,6 @@ module.exports = {
       trip_cost: {
         type: Sequelize.DOUBLE
       },
-      wait_time: {
-        type: Sequelize.STRING
-      },
       completed: {
         type: Sequelize.BOOLEAN
       },

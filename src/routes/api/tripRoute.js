@@ -25,7 +25,7 @@ const tripRoute = express.Router();
  *      trip:
  *        type: object
  *        required:
- *          - rider_id
+ *          - driver_id
  *          - rider_id
  *          - pickupLocId
  *          - dropoffLocId
@@ -33,7 +33,7 @@ const tripRoute = express.Router();
  *          - endTime
  *          - rating
  *          - comment
- *          - tripCose
+ *          - tripCost
  *          - waitTime
  *          - completed
  *          - active
@@ -54,7 +54,6 @@ tripRoute.post("/new", TripController.createTrip);
  *      responses:
  *        "201":
  *          description: data updated successfully
-
  *
  */
 
@@ -63,7 +62,7 @@ tripRoute.patch("/:id/complete", TripController.completeTrip);
 /**
  * @swagger
  *
- * /trips/active:
+ * /trips?active=true:
  *    get:
  *      summary: get active taxi24 trips
  *      tags: [Trip]
@@ -79,6 +78,6 @@ tripRoute.patch("/:id/complete", TripController.completeTrip);
  *
  */
 
-tripRoute.get("/active", TripController.getActiveTrips);
+tripRoute.get("/", TripController.getActiveTrips);
 
 export default tripRoute;

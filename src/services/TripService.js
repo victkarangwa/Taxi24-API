@@ -1,4 +1,8 @@
+import { v4 as uuid } from "uuid";
 import QueryService from "./QueryService";
+import models from "../db/models";
+
+const { Trip, Rider, Location, Driver, Vehicle } = models;
 
 class TripService {
   /**
@@ -9,7 +13,26 @@ class TripService {
    * @returns {object} new trip data
    */
   static async createTrip(req) {
-    const newTrip = "";
+    const {
+      body: {
+        start_time,
+        rider_id,
+        driver_id,
+        pickup_loc_id,
+        dropoff_loc_id,
+        trip_cost,
+      },
+    } = req;
+    const newTrip = await QueryService.create(Trip, {
+      id: uuid(),
+      start_time,
+      rider_id,
+      driver_id,
+      pickup_loc_id,
+      dropoff_loc_id,
+      trip_cost,
+      completed: false,
+    });
     return newTrip;
   }
 
@@ -21,9 +44,23 @@ class TripService {
    * @returns {object} completed Trip data
    */
   static async completeTrip(req) {
-    const completedTrip = "";
+    const {
+      body: { end_time, rating, comment },
+      params: { id },
+    } = req;
+    const completeTrip = await QueryService.update(Trip, [
+      {
+        end_time,
+        rating,
+        comment,
+        completed: true,
+      },
+      {
+        where: { id },
+      },
+    ]);
 
-    return completedTrip;
+    return completeTrip;
   }
 
   /**
@@ -34,10 +71,14 @@ class TripService {
    * @returns {object} list of active trips
    */
   static async getActiveTrips(req) {
-    const activetrips = "";
+    const {
+      query: { active },
+    } = req;
+    const activetrips = await QueryService.findAll(Trip, {
+      where: { completed: active },
+    });
 
     return activetrips;
   }
-
 }
 export default TripService;
