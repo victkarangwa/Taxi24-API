@@ -64,35 +64,6 @@ driverRoute.get("/all", DriverController.getAllDrivers);
 /**
  * @swagger
  *
- * /drivers/availaible:
- *    get:
- *      summary: get available taxi24 drivers
- *      tags: [Drivers]
- *      requestBody:
- *        required: false
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/driver'
- *      responses:
- *        "201":
- *          description: data retieved successfully
- *
- * components:
- *    schemas:
- *      driver:
- *        type: object
- *        required:
- *          - offset
- *          - limit
- *
- */
-
-driverRoute.get("/available", DriverController.getAllAvailableDrivers);
-
-/**
- * @swagger
- *
  * /drivers/route:
  *    get:
  *      summary: get available taxi24 drivers with a specific distance in a specific location
@@ -133,6 +104,6 @@ driverRoute.get("/route", DriverController.getDriversInDistance);
  *          description: data retieved successfully
  */
 
-driverRoute.post("/:id", DriverController.getSpecificDriver);
+driverRoute.get("/:id", DriverController.getSpecificDriver);
 
 export default driverRoute;

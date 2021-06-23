@@ -22,7 +22,7 @@ const riderRoute = express.Router();
  *
  */
 
-riderRoute.post("/all", RiderController.getAllRiders);
+riderRoute.get("/all", RiderController.getAllRiders);
 
 
 /**

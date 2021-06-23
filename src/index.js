@@ -7,7 +7,7 @@ import router from "./routes";
 
 const app = express();
 app.use(cors(), helmet());
-// app.use("/", router);
+app.use("/", router);
 
 app.get("/", (req, res) =>
   Response.successMessage(res, "TAXI24 APIs", "", HttpStatus.OK)
