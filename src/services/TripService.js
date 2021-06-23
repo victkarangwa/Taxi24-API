@@ -74,9 +74,12 @@ class TripService {
     const {
       query: { active },
     } = req;
-    const activetrips = await QueryService.findAll(Trip, {
-      where: { completed: active },
-    });
+    const activetrips =
+      active
+        ? await QueryService.findAll(Trip, {
+            where: { completed: active },
+          })
+        : await QueryService.findAll(Trip);
 
     return activetrips;
   }

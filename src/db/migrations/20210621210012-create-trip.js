@@ -61,9 +61,6 @@ module.exports = {
       completed: {
         type: Sequelize.BOOLEAN
       },
-      active: {
-        type: Sequelize.BOOLEAN
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
