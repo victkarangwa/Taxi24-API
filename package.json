@@ -4,7 +4,7 @@
   "description": "Taxi24 is a new startup based in Kigali. They would like to disrupt the taxi industry in Rwanda by providing a white-label solution to the existing taxi companies and hotels.",
   "main": "index.js",
   "scripts": {
-    "start": "node --require @babel/polyfill build/index.js",
+    "start": "babel-node src/index.js",
     "dev-server": "nodemon --exec babel-node ./src/index.js",
     "eslint": "eslint --ignore-path .gitignore .",
     "db:seed:test": "NODE_ENV=testing npx sequelize-cli db:seed:undo:all && NODE_ENV=testing sequelize db:seed:all",

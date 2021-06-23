@@ -12,9 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       rating: DataTypes.DOUBLE,
       comment: DataTypes.TEXT,
       trip_cost: DataTypes.DOUBLE,
-      wait_time: DataTypes.STRING,
       completed: DataTypes.BOOLEAN,
-      active: DataTypes.BOOLEAN,
     },
     {}
   );
