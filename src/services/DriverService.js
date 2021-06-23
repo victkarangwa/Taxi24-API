@@ -1,4 +1,7 @@
 import QueryService from "./QueryService";
+import models from "../db/models";
+
+const { Driver, Location, Vehicle } = models;
 
 class DriverService {
   /**
@@ -9,7 +12,24 @@ class DriverService {
    * @returns {object} drivers data
    */
   static async getAllDrivers(req) {
-    const allDrivers = "";
+    const allDrivers = QueryService.findAll(Driver, {
+      include: [
+        {
+          model: Vehicle,
+          as: "driverVehicle",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: Location,
+          as: "driverLocation",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
+    });
     return allDrivers;
   }
 
@@ -21,7 +41,25 @@ class DriverService {
    * @returns {object} available drivers data
    */
   static async getAllAvailableDrivers(req) {
-    const allAvailableDrivers = "";
+    const allAvailableDrivers = await QueryService.findAll(Driver, {
+      where: { working: true },
+      include: [
+        {
+          model: Vehicle,
+          as: "driverVehicle",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: Location,
+          as: "driverLocation",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
+    });
 
     return allAvailableDrivers;
   }
@@ -34,9 +72,28 @@ class DriverService {
    * @returns {object} available drivers in a specific distance data
    */
   static async getDriversInDistance(req) {
-    const driversInDistance = "";
+    const driversInDistance = await QueryService.findAll(Driver, {
+      where: { working: true },
+      include: [
+        {
+          model: Vehicle,
+          as: "driverVehicle",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: Location,
+          as: "driverLocation",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
+    });
+    const grids = driversInDistance.map((g) => g.driverLocation);
 
-    return driversInDistance;
+    return grids;
   }
 
   /**
@@ -47,7 +104,28 @@ class DriverService {
    * @returns {object} specific driver data
    */
   static async getSpecificDriver(req) {
-    const driver = "";
+    const {
+      params: { id },
+    } = req;
+    const driver = QueryService.findOne(Driver, {
+      where: { id },
+      include: [
+        {
+          model: Vehicle,
+          as: "driverVehicle",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: Location,
+          as: "driverLocation",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
+    });
 
     return driver;
   }

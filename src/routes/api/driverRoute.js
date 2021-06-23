@@ -1,5 +1,7 @@
 import express from "express";
 import DriverController from "../../controllers/DriverController";
+import { DoesDriverExist } from "../../middlewares/driver";
+import Validator from "../../middlewares/Validator";
 
 const driverRoute = express.Router();
 
@@ -59,7 +61,7 @@ driverRoute.get("/all", DriverController.getAllDrivers);
  *
  */
 
-driverRoute.get("/all", DriverController.getAllDrivers);
+driverRoute.get("/available", DriverController.getAllAvailableDrivers);
 
 /**
  * @swagger
@@ -88,7 +90,12 @@ driverRoute.get("/all", DriverController.getAllDrivers);
  *
  */
 
-driverRoute.get("/route", DriverController.getDriversInDistance);
+driverRoute.get(
+  "/route",
+  Validator.driverDistanceRules(),
+  Validator.validateInput,
+  DriverController.getDriversInDistance
+);
 
 /**
  * @swagger
@@ -104,6 +111,12 @@ driverRoute.get("/route", DriverController.getDriversInDistance);
  *          description: data retieved successfully
  */
 
-driverRoute.get("/:id", DriverController.getSpecificDriver);
+driverRoute.get(
+  "/:id",
+  Validator.idRule(),
+  Validator.validateInput,
+  DoesDriverExist,
+  DriverController.getSpecificDriver
+);
 
 export default driverRoute;
