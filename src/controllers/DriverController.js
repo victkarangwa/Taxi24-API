@@ -52,10 +52,10 @@ class DriverController {
    */
   static async getDriversInDistance(req, res) {
     const { distance, location } = req.query;
-    const driversInDistance = await DriverService.getDriversInDistance(req);
+    const [driversInDistance, locationName] = await DriverService.getDriversInDistance(req);
     return Response.successMessage(
       res,
-      `All taxi24 drivers within ${distance} KM for ${location}`,
+      `All taxi24 drivers within ${distance} KM for \"${locationName}\"`,
       driversInDistance,
       httpStatus.OK
     );

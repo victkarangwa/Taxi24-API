@@ -1,7 +1,9 @@
 import QueryService from "./QueryService";
 import models from "../db/models";
+import axios from "axios";
 
 const { Driver, Location, Vehicle } = models;
+const { GOOGLE_API_URL, GOOGLE_MAP_API_KEYS } = process.env;
 
 class DriverService {
   /**
@@ -72,6 +74,9 @@ class DriverService {
    * @returns {object} available drivers in a specific distance data
    */
   static async getDriversInDistance(req) {
+    const {
+      query: { location, distance },
+    } = req;
     const driversInDistance = await QueryService.findAll(Driver, {
       where: { working: true },
       include: [
@@ -90,10 +95,23 @@ class DriverService {
           },
         },
       ],
+      raw: true,
+      nest: true,
     });
-    const grids = driversInDistance.map((g) => g.driverLocation);
+    let locationName;
+    const availableDrivers = await Promise.all(
+      driversInDistance.map(async (g) => {
+        const driverLoc = g.driverLocation.map_grid;
+        const url = `${GOOGLE_API_URL}?unit=K&origin=${location}&destination=${driverLoc}&key=${GOOGLE_MAP_API_KEYS}`;
+        const googleData = await axios.get(url);
+        const driverDistance = googleData.data.routes[0].legs[0].distance.value;
+        locationName=googleData.data.routes[0].legs[0].start_address;
+        g.distance = driverDistance;
+        if (+distance * 1000 >= driverDistance) return g;
+      })
+    );
 
-    return grids;
+    return [availableDrivers.filter((d) => d), locationName];
   }
 
   /**
