@@ -7,10 +7,15 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     dob: DataTypes.DATE,
     address: DataTypes.STRING,
-    payment_method: DataTypes.STRING
+    payment_method: DataTypes.STRING,
+    location_id: DataTypes.STRING,
   }, {});
   Rider.associate = function(models) {
     // associations can be defined here
+    Rider.belongsTo(models.Location, {
+      as: "riderLocation",
+      foreignKey: "location_id",
+    });
   };
   return Rider;
 };

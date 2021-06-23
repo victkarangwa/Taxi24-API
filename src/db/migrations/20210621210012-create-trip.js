@@ -8,16 +8,40 @@ module.exports = {
         type: Sequelize.STRING
       },
       rider_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        references: {
+          model: "Riders",
+          key: "id",
+        },
       },
       driver_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        references: {
+          model: "Drivers",
+          key: "id",
+        },
       },
       pickup_loc_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        references: {
+          model: "Locations",
+          key: "id",
+        },
       },
       dropoff_loc_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        references: {
+          model: "Locations",
+          key: "id",
+        },
       },
       start_time: {
         type: Sequelize.DATE

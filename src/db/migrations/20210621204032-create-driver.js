@@ -17,7 +17,13 @@ module.exports = {
         type: Sequelize.DATE
       },
       vehicle_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        references: {
+          model: "Vehicles",
+          key: "id",
+        },
       },
       licence_number: {
         type: Sequelize.STRING
@@ -30,6 +36,15 @@ module.exports = {
       },
       rating: {
         type: Sequelize.DOUBLE
+      },
+      location_id: {
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        references: {
+          model: "Locations",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,

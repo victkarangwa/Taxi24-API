@@ -28,6 +28,15 @@ module.exports = {
       payment_method: {
         type: Sequelize.STRING
       },
+      location_id: {
+        type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        references: {
+          model: "Locations",
+          key: "id",
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -1,26 +1,20 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Vehicles', {
+    return queryInterface.createTable('Locations', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING
       },
-      size: {
-        type: Sequelize.DOUBLE
-      },
-      model: {
+      map_grid: {
         type: Sequelize.STRING
       },
-      plate_number: {
+      landmark_name: {
         type: Sequelize.STRING
       },
-      mfc_year: {
+      zip_code: {
         type: Sequelize.STRING
-      },
-      active: {
-        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +27,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Vehicles');
+    return queryInterface.dropTable('Locations');
   }
 };

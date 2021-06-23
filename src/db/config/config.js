@@ -1,26 +1,28 @@
-{
-  "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "operatorsAliases": false
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "operatorsAliases": false
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "operatorsAliases": false
-  }
-}
+import 'regenerator-runtime/runtime';
+import { config } from 'dotenv';
+
+config();
+
+export const development = {
+	url: process.env.DATABASE_DEV_URL,
+	dialect: 'postgres',
+	logging: false,
+};
+
+export const test = {
+	url: process.env.DATABASE_TEST_URL,
+	dialect: 'postgres',
+	logging: false,
+};
+
+export const production = {
+	url: process.env.DATABASE_URL,
+	dialect: 'postgres',
+	dialectOptions: {
+		ssl: {
+			require: true,
+			rejectUnauthorized: false,
+		},
+	},
+	logging: false,
+};
