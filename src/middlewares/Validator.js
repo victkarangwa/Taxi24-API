@@ -51,6 +51,25 @@ class Validator {
       ).isString(),
     ];
   }
+
+  /**
+   * Validate distance rules
+   * @static
+   * @returns {object} errors
+   */
+  static newTripRules() {
+    return [
+      check("start_time", "Start time should be valid").isString(),
+      check("rider_id", "Rider id should be valid").isUUID(),
+      check("driver_id", "Driver id should be valid").isUUID(),
+      check("pickup_loc_id", "Pickup location ID id should be valid").isUUID(),
+      check(
+        "dropoff_loc_id",
+        "Dropoff location ID id should be valid"
+      ).isUUID(),
+      check("trip_cost", "Trip cost location ID id should be valid").isInt(),
+    ];
+  }
 }
 
 export default Validator;

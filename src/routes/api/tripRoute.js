@@ -1,5 +1,6 @@
 import express from "express";
 import TripController from "../../controllers/TripController";
+import Validator from "../../middlewares/Validator";
 
 const tripRoute = express.Router();
 
@@ -40,7 +41,12 @@ const tripRoute = express.Router();
  *
  */
 
-tripRoute.post("/new", TripController.createTrip);
+tripRoute.post(
+  "/new",
+  Validator.newTripRules(),
+  Validator.validateInput,
+  TripController.createTrip
+);
 
 /**
  * @swagger
