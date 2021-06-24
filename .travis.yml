@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - 'stable'
+install: npm install
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database taxi24_test;' -U postgres
+script: npm test
+after_success: 
+ - npm run coverage

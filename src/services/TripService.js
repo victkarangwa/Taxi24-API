@@ -53,7 +53,7 @@ class TripService {
         end_time,
         rating,
         comment,
-        completed: true,
+        completed: false,
       },
       {
         where: { id },
